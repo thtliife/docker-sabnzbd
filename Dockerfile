@@ -1,13 +1,13 @@
 FROM alpine:latest
 MAINTAINER Cameron Meindl <cmeindl@gmail.com>
 ARG GITTAG=1.1.1
-ARG PAR2TAG=v0.6.14 
+ARG PAR2TAG=v0.6.14
 
 RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-dev libffi-dev musl-dev" \
   && apk --update add $buildDeps \
   && apk add \
     python \
-    py-pip \
+    py2-pip \
     ffmpeg-libs \
     ffmpeg \
     unrar \
