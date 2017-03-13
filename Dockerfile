@@ -1,6 +1,6 @@
 FROM alpine:latest
 MAINTAINER Cameron Meindl <cmeindl@gmail.com>
-ARG GITTAG=1.2.2
+ARG GITTAG=2.0.0Beta1
 ARG PAR2TAG=v0.6.14
 
 RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-dev libffi-dev musl-dev" \
@@ -16,6 +16,7 @@ RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-d
     p7zip \
 && pip install --upgrade pip --no-cache-dir \
 && pip install cheetah --no-cache-dir \
+&& pip install sabyenc \
 && git clone --depth 1 --branch ${PAR2TAG} https://github.com/Parchive/par2cmdline.git \
 && cd /par2cmdline \
 && aclocal \
