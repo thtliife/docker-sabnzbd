@@ -20,9 +20,7 @@ RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-d
 && pip install sabyenc \
 && git clone --depth 1 --branch ${PAR2TAG} https://github.com/Parchive/par2cmdline.git \
 && cd /par2cmdline \
-&& aclocal \
-&& automake --add-missing \
-&& autoconf \
+&& sh automake.sh \
 && ./configure \
 && make \
 && make install \
