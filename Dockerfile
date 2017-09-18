@@ -1,7 +1,7 @@
 FROM alpine:latest
 MAINTAINER Cameron Meindl <cmeindl@gmail.com>
 ARG GITTAG=2.2.1
-ARG PAR2TAG=v0.6.14
+ARG PAR2TAG=v0.7.4
 
 RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-dev libffi-dev musl-dev" \
   && apk --update add $buildDeps \
@@ -14,6 +14,7 @@ RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-d
     openssl \
     ca-certificates \
     p7zip \
+    libgomp \
 && pip install --upgrade pip --no-cache-dir \
 && pip install cheetah --no-cache-dir \
 && pip install sabyenc \
