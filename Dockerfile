@@ -3,6 +3,7 @@ MAINTAINER Cameron Meindl <cmeindl@gmail.com>
 ARG GITTAG=2.2.1
 ARG PAR2TAG=v0.6.14
 
+COPY requirements.txt /requirements.txt
 RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-dev libffi-dev musl-dev" \
   && apk --update add $buildDeps \
   && apk add \
@@ -15,8 +16,7 @@ RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-d
     ca-certificates \
     p7zip \
 && pip install --upgrade pip --no-cache-dir \
-&& pip install cheetah --no-cache-dir \
-&& pip install sabyenc \
+&& pip install -r /requirements.txt --no-cache-dir \
 && git clone --depth 1 --branch ${PAR2TAG} https://github.com/Parchive/par2cmdline.git \
 && cd /par2cmdline \
 && aclocal \
