@@ -1,6 +1,6 @@
 #!/bin/sh
-[ -z "$UID" ] && UID=0
-[ -z "$GID" ] && GID=0
+UID=${UID:-0}
+GID=${GID:-0}
 echo -e "appuser:x:${UID}:${GID}:appuser:/app:/bin/false\n" >> /etc/passwd
 echo -e "appgroup:x:${GID}:appuser\n" >> /etc/group
 mkdir -p /config
