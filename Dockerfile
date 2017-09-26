@@ -4,6 +4,7 @@ ARG GITTAG=2.3.0
 ARG PAR2TAG=v0.7.4
 
 COPY requirements.txt /requirements.txt
+COPY start.sh /start.sh
 RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-dev libffi-dev musl-dev" \
   && apk --update add $buildDeps \
   && apk add \
@@ -32,17 +33,7 @@ RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-d
 && python setup.py build \
 && python setup.py install \
 && cd / \
-&& echo '#!/bin/sh' > /start \
-&& echo '[ -z "$UID" ] && UID=0' >> /start \
-&& echo '[ -z "$GID" ] && GID=0' >> /start \
-&& echo 'echo -e "appuser:x:${UID}:${GID}:appuser:/app:/bin/false\n" >> /etc/passwd' >> /start \
-&& echo 'echo -e "appgroup:x:${GID}:appuser\n" >> /etc/group' >> /start \
-&& echo 'mkdir -p /config' >> /start \
-&& echo 'mkdir -p /data' >> /start \
-&& echo 'chown -R appuser:appgroup /config' >> /start \
-&& echo 'chown appuser:appgroup /data' >> /start \
-&& echo 'exec /bin/su -p -s "/bin/sh" -c "exec ./SABnzbd.py -b 0 -f /config/ -s 0.0.0.0:8080" appuser' >> /start \
-&& chmod +x /start \
+&& chmod +x /start.sh \
 && rm -rf /yenc \
 && apk del $buildDeps \
 && rm -rf \
@@ -58,4 +49,4 @@ VOLUME ["/config", "/data"]
 
 WORKDIR /sabnzbd
 
-CMD ["/start"]
+CMD ["/start.sh"]
