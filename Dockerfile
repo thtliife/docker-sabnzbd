@@ -45,6 +45,9 @@ RUN buildDeps="gcc g++ git mercurial make automake autoconf python-dev openssl-d
 
 EXPOSE 8080 9090
 
+HEALTHCHECK --interval=60s --timeout=15s --start-period=120s \
+            CMD wget -q -O - 'http://localhost:8080'
+
 VOLUME ["/config", "/data"]
 
 WORKDIR /sabnzbd
